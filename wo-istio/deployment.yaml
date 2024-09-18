@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: basic-service
+  template:
+    metadata:
+      labels:
+        app: basic-service
+    spec:
+      containers:
+      - name: basic-service
+        image: basic-service:latest
+        ports:
+        - containerPort: 8080
