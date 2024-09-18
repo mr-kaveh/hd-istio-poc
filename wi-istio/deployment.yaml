@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-service
+  name: istio-service
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-service
+      app: istio-service
   template:
     metadata:
       labels:
-        app: my-service
+        app: istio-service
     spec:
       containers:
-      - name: my-service
-        image: my-service:latest
+      - name: istio-service
+        image: istio-service:latest
         ports:
         - containerPort: 8080
       # Istio sidecar injection
