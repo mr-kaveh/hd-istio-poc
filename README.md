@@ -111,3 +111,11 @@ The microservice code can be simplified, as Istio handles retries, timeouts, and
 	    if data:
 	        # Process data
 	        pass
+
+### Key Differences
+
+1.  **Deployment**: With Istio, the deployment includes annotations for sidecar injection, which automatically adds Envoy proxies to manage traffic.
+2.  **Code Base**: The code is simplified as Istio handles cross-cutting concerns like retries, timeouts, and logging, reducing the need for boilerplate code.
+3.  **Traffic Management**: Istio provides advanced traffic management features like traffic splitting, mirroring, and fault injection without changing the application code.
+4.  **Security**: Istio manages service-to-service authentication, authorization, and encryption, enhancing security without modifying the microservice.
+5.  **Observability**: Istio provides out-of-the-box metrics, logging, and tracing, improving observability and making it easier to monitor and debug services.
