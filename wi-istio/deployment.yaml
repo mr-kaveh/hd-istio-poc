@@ -1,0 +1,23 @@
+## the deployment includes a sidecar proxy (Envoy) that handles traffic management, security, and observability
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-service
+  template:
+    metadata:
+      labels:
+        app: my-service
+    spec:
+      containers:
+      - name: my-service
+        image: my-service:latest
+        ports:
+        - containerPort: 8080
+      # Istio sidecar injection
+      annotations:
+        sidecar.istio.io/inject: "true"
