@@ -12,3 +12,102 @@ By abstracting these concerns away from the application code, a service mesh all
 
 
 ![service-mesh](https://github.com/user-attachments/assets/0ae1b8a9-7016-48db-8ff6-1a3d64365e98)
+
+
+### Without Istio
+#### Deployment
+
+In a Kubernetes environment, a basic deployment of a microservice might look like this:
+
+	apiVersion: apps/v1
+	kind: Deployment
+	metadata:
+	  name: my-service
+	spec:
+	  replicas: 3
+	  selector:
+	    matchLabels:
+	      app: my-service
+	  template:
+	    metadata:
+	      labels:
+	        app: my-service
+	    spec:
+	      containers:
+	      - name: my-service
+	        image: my-service:latest
+	        ports:
+	        - containerPort: 8080
+
+
+#### Code Base
+
+In the microservice code, you might handle retries, timeouts, and logging manually:
+
+	import requests
+	import logging
+
+	logging.basicConfig(level=logging.INFO)
+
+	def call_external_service():
+	    try:
+	        response = requests.get("http://external-service/api", timeout=5)
+	        response.raise_for_status()
+	        return response.json()
+	    except requests.exceptions.RequestException as e:
+	        logging.error(f"Request failed: {e}")
+	        return None
+
+	# Business logic
+	def process_data():
+	    data = call_external_service()
+	    if data:
+	        # Process data
+	        pass
+
+### With Istio
+
+#### Deployment
+
+With Istio, the deployment includes a sidecar proxy (Envoy) that handles traffic management, security, and observability:
+
+	apiVersion: apps/v1
+	kind: Deployment
+	metadata:
+	  name: my-service
+	spec:
+	  replicas: 3
+	  selector:
+	    matchLabels:
+	      app: my-service
+	  template:
+	    metadata:
+	      labels:
+	        app: my-service
+	    spec:
+	      containers:
+	      - name: my-service
+	        image: my-service:latest
+	        ports:
+	        - containerPort: 8080
+	      # Istio sidecar injection
+	      annotations:
+	        sidecar.istio.io/inject: "true"
+
+#### Code Base
+
+The microservice code can be simplified, as Istio handles retries, timeouts, and logging:
+	
+	import requests
+
+	def call_external_service():
+	    response = requests.get("http://external-service/api")
+	    response.raise_for_status()
+	    return response.json()
+
+	# Business logic
+	def process_data():
+	    data = call_external_service()
+	    if data:
+	        # Process data
+	        pass
