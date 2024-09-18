@@ -9,3 +9,6 @@ A  **service mesh**  is a dedicated infrastructure layer that manages service-to
 4.  **Service Discovery**: Automatically detects and keeps track of services within the mesh, simplifying the management of service endpoints
 
 By abstracting these concerns away from the application code, a service mesh allows developers to focus on business logic while ensuring reliable and secure communication between services.
+
+
+![service-mesh](https://github.com/user-attachments/assets/0ae1b8a9-7016-48db-8ff6-1a3d64365e98)
