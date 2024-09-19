@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hd-namespace
+  labels:
+    istio-injection: enabled
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hd-service
+  namespace: hd-namespace
+  labels:
+    app: hd-app
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: hd-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hd-app
+  namespace: hd-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hd-app
+  template:
+    metadata:
+      labels:
+        app: hd-app
+    spec:
+      containers:
+      - name: hd-app
+        image: hd-app-image
+        ports:
+        - containerPort: 80
