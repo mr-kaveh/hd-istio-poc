@@ -23,3 +23,6 @@
 2.  **Security-Sensitive Applications**: Applications requiring strict security policies, such as mTLS between services.
 3.  **Observability Needs**: Environments where detailed monitoring, logging, and tracing are crucial for operations.
 4.  **Resilient Systems**: Systems that need to handle failures gracefully with retries, timeouts, and circuit breaking.
+
+
+![1_jBu7mQInMfOZPGvBUJ9J1g](https://github.com/user-attachments/assets/1f90e01d-af5d-4379-a310-617fd0783dc2)
