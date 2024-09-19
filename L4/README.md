@@ -7,7 +7,7 @@
     kind: DestinationRule
     metadata:
       name: hd-tcp-destination-rule
-      namespace: your-namespace
+      namespace: hd-namespace
     spec:
       host: hd-tcp-service
       trafficPolicy:
@@ -27,7 +27,7 @@
     kind: VirtualService
     metadata:
       name: hd-tcp-virtual-service
-      namespace: your-namespace
+      namespace: hd-namespace
     spec:
       hosts:
       - hd-tcp-service
@@ -60,10 +60,10 @@ The security configuration in Istio involves two main components:  `DestinationR
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: my-tcp-destination-rule
-  namespace: your-namespace
+  name: hd-tcp-destination-rule
+  namespace: hd-namespace
 spec:
-  host: my-tcp-service
+  host: hd-tcp-service
   trafficPolicy:
     loadBalancer:
       simple: ROUND_ROBIN
@@ -73,11 +73,11 @@ spec:
 ```
 
 -   **DestinationRule**: Defines policies that apply to traffic intended for a service after routing has occurred.
--   **host**: Specifies the service to which the rule applies (`my-tcp-service`).
+-   **host**: Specifies the service to which the rule applies (`hd-tcp-service`).
 -   **trafficPolicy**: Contains the traffic management policies.
     -   **loadBalancer**: Specifies the load balancing strategy. Here,  `ROUND_ROBIN`  is used to distribute traffic evenly across all instances of the service.
     -   **tls**: Configures the TLS settings for the service.
-        -   **mode: ISTIO_MUTUAL**: Enables mutual TLS (mTLS) for traffic to  `my-tcp-service`. This means that both the client and the server must present certificates to authenticate each other, ensuring secure communication.
+        -   **mode: ISTIO_MUTUAL**: Enables mutual TLS (mTLS) for traffic to  `hd-tcp-service`. This means that both the client and the server must present certificates to authenticate each other, ensuring secure communication.
 
 #### 2. PeerAuthentication
 
@@ -86,7 +86,7 @@ apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: default
-  namespace: your-namespace
+  namespace: hd-namespace
 spec:
   mtls:
     mode: STRICT
