@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: your-namespace
+  labels:
+    istio-injection: enabled
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-tcp-service
+  namespace: your-namespace
+  labels:
+    app: my-tcp-app
+spec:
+  ports:
+  - port: 9000
+    name: tcp
+  selector:
+    app: my-tcp-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-tcp-app
+  namespace: your-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-tcp-app
+  template:
+    metadata:
+      labels:
+        app: my-tcp-app
+    spec:
+      containers:
+      - name: my-tcp-app
+        image: my-tcp-app-image
+        ports:
+        - containerPort: 9000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: my-tcp-destination-rule
+  namespace: your-namespace
+spec:
+  host: my-tcp-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: your-namespace
+spec:
+  mtls:
+    mode: STRICT
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: my-tcp-virtual-service
+  namespace: your-namespace
+spec:
+  hosts:
+  - my-tcp-service
+  tcp:
+  - match:
+    - port: 9000
+    route:
+    - destination:
+        host: my-tcp-service
+        port:
+          number: 9000
