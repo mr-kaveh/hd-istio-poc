@@ -103,7 +103,7 @@ spec:
 
 ## Differences Between DestinationRule and PeerAuthentication in Istio Security
 
-#### DestinationRule
+### DestinationRule
 
 **Purpose**:
 
@@ -123,7 +123,7 @@ spec:
 3.  **Connection Pool Settings**: Managing connection pool settings for a service to optimize performance.
 
 
-#### PeerAuthentication
+### PeerAuthentication
 
 **Purpose**:
 
