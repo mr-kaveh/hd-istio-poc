@@ -8,45 +8,45 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-tcp-service
+  name: hd-tcp-service
   namespace: your-namespace
   labels:
-    app: my-tcp-app
+    app: hd-tcp-app
 spec:
   ports:
   - port: 9000
     name: tcp
   selector:
-    app: my-tcp-app
+    app: hd-tcp-app
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-tcp-app
+  name: hd-tcp-app
   namespace: your-namespace
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-tcp-app
+      app: hd-tcp-app
   template:
     metadata:
       labels:
-        app: my-tcp-app
+        app: hd-tcp-app
     spec:
       containers:
-      - name: my-tcp-app
-        image: my-tcp-app-image
+      - name: hd-tcp-app
+        image: hd-tcp-app-image
         ports:
         - containerPort: 9000
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: my-tcp-destination-rule
+  name: hd-tcp-destination-rule
   namespace: your-namespace
 spec:
-  host: my-tcp-service
+  host: hd-tcp-service
   trafficPolicy:
     loadBalancer:
       simple: ROUND_ROBIN
@@ -54,16 +54,16 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: my-tcp-virtual-service
+  name: hd-tcp-virtual-service
   namespace: your-namespace
 spec:
   hosts:
-  - my-tcp-service
+  - hd-tcp-service
   tcp:
   - match:
     - port: 9000
     route:
     - destination:
-        host: my-tcp-service
+        host: hd-tcp-service
         port:
           number: 9000
