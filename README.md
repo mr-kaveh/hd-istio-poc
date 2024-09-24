@@ -137,11 +137,9 @@ Istio uses an extended version of the Envoy proxy. Envoy is a high-performance p
  ### What to configure!
  
  To get started with Istio and to configure Istio, there are 3 main resources that you need to configure.
- First there's a gateway. **Gateway** is like a load balancer that sits at the edge of your mesh,
- and accepts incoming and outgoing HTTP and TCP connections. Next, to direct traffic from Gateway to your services, you create a **virtual service**; A virtual service can be bound to a gateway and direct traffic to UI,
- or it could be bound to a service and then direct traffic to your other services where you can apply policies like 90% and 10% traffic split rules. Once traffic is routed,  you can apply rules on top of that traffic,
-such as TLS settings or circuit braking, and those are done using **destination rules**.
- And those are the 3 main resources you need to know about Istio.
-The logic is being moved outside of this control plane and into the proxies themselves to avoid the additional network hop.This translates to improved performance.
+ 1. **Gateway** is like a load balancer that sits at the edge of your mesh, and accepts incoming and outgoing HTTP and TCP connections. 
+ 2. **Virtual Service**, to direct traffic from Gateway to your services, you create a **virtual service**; A virtual service can be bound to a gateway and direct traffic to UI, or it could be bound to a service and then direct traffic to your other services where you can apply policies like 90% and 10% traffic split rules. 
+ 3. **Destination Rules** Once traffic is routed,  you can apply rules on top of that traffic,
+such as TLS settings or circuit braking, and those are done using **destination rules**. And those are the 3 main resources you need to know about Istio.The logic is being moved outside of this control plane and into the proxies themselves to avoid the additional network hop.This translates to improved performance.
 
 
