@@ -119,3 +119,7 @@ The microservice code can be simplified, as Istio handles retries, timeouts, and
 3.  **Traffic Management**: Istio provides advanced traffic management features like traffic splitting, mirroring, and fault injection without changing the application code.
 4.  **Security**: Istio manages service-to-service authentication, authorization, and encryption, enhancing security without modifying the microservice.
 5.  **Observability**: Istio provides out-of-the-box metrics, logging, and tracing, improving observability and making it easier to monitor and debug services.
+
+## Architecture
+
+![arch](https://github.com/user-attachments/assets/32996eaf-6cb1-457b-ab51-3b81ff1146ba)
