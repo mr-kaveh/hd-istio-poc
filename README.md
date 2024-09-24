@@ -123,3 +123,25 @@ The microservice code can be simplified, as Istio handles retries, timeouts, and
 ## Architecture
 
 ![arch](https://github.com/user-attachments/assets/32996eaf-6cb1-457b-ab51-3b81ff1146ba)
+
+
+### Envoy
+Istio uses an extended version of the Envoy proxy. Envoy is a high-performance proxy developed in C++ to mediate all inbound and outbound traffic for all services in the service mesh. Envoy proxies are the only Istio components that interact with data plane traffic.
+
+### How They work together
+
+ Istio extends Kubernetes using CRDs. So, to apply an Istio configuration you just write your **YAML**,
+ and then apply it to Kubernetes. The Istio **Galley** component will receive that YAML, validate it, and then hand it over to Istio **Pilot**. Pilot will convert that configuration to envoy configuration,
+ and distribute it to each one of the proxies. and then these proxies constantly report telemetry information about what's going on in your system to the Istio **Mixer** component. And last, but not least, there is **Citadel**. Citadel is responsible for providing strong identity to each one of the services in your system.
+ It also generates certificates and rolls it out to each one of the proxies, so that the proxies can do mutual TLS when they're talking to one another.
+ ### What to configure!
+ 
+ To get started with Istio and to configure Istio, there are 3 main resources that you need to configure.
+ First there's a gateway. **Gateway** is like a load balancer that sits at the edge of your mesh,
+ and accepts incoming and outgoing HTTP and TCP connections. Next, to direct traffic from Gateway to your services, you create a **virtual service**; A virtual service can be bound to a gateway and direct traffic to UI,
+ or it could be bound to a service and then direct traffic to your other services where you can apply policies like 90% and 10% traffic split rules. Once traffic is routed,  you can apply rules on top of that traffic,
+such as TLS settings or circuit braking, and those are done using **destination rules**.
+ And those are the 3 main resources you need to know about Istio.
+The logic is being moved outside of this control plane and into the proxies themselves to avoid the additional network hop.This translates to improved performance.
+
+
