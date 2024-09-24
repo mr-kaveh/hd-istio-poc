@@ -130,7 +130,7 @@ Istio uses an extended version of the Envoy proxy. Envoy is a high-performance p
 
 ### How They work together
 
- Istio extends Kubernetes using CRDs. So, to apply an Istio configuration you just write your **YAML**,
+ To apply an Istio configuration you just write your **YAML**,
  and then apply it to Kubernetes. The Istio **Galley** component will receive that YAML, validate it, and then hand it over to Istio **Pilot**. Pilot will convert that configuration to envoy configuration,
  and distribute it to each one of the proxies. and then these proxies constantly report telemetry information about what's going on in your system to the Istio **Mixer** component. And last, but not least, there is **Citadel**. Citadel is responsible for providing strong identity to each one of the services in your system.
  It also generates certificates and rolls it out to each one of the proxies, so that the proxies can do mutual TLS when they're talking to one another.
